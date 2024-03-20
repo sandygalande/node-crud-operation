@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category and Product Master</title>
+</head>
+<body>
+    <h1>Category Master</h1>
+
+    <!-- Category CRUD Operations -->
+
+    <h2>Add Category</h2>
+    <form id="addCategoryForm">
+        <label for="categoryName">Category Name:</label>
+        <input type="text" id="categoryName" name="categoryName">
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Edit Category</h2>
+    <form id="editCategoryForm">
+        <label for="editCategoryId">Category ID:</label>
+        <input type="text" id="editCategoryId" name="editCategoryId">
+        <label for="editCategoryName">New Category Name:</label>
+        <input type="text" id="editCategoryName" name="editCategoryName">
+        <button type="submit">Edit</button>
+    </form>
+
+    <h2>Delete Category</h2>
+    <form id="deleteCategoryForm">
+        <label for="deleteCategoryId">Category ID:</label>
+        <input type="text" id="deleteCategoryId" name="deleteCategoryId">
+        <button type="submit">Delete</button>
+    </form>
+
+    <h1>Product Master</h1>
+
+    <!-- Product CRUD Operations -->
+
+    <h2>Add Product</h2>
+    <form id="addProductForm">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" name="productName">
+        <label for="categoryId">Category ID:</label>
+        <input type="text" id="categoryId" name="categoryId">
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Edit Product</h2>
+    <form id="editProductForm">
+        <label for="editProductId">Product ID:</label>
+        <input type="text" id="editProductId" name="editProductId">
+        <label for="editProductName">New Product Name:</label>
+        <input type="text" id="editProductName" name="editProductName">
+        <label for="editCategoryId">New Category ID:</label>
+        <input type="text" id="editCategoryId" name="editCategoryId">
+        <button type="submit">Edit</button>
+    </form>
+
+    <h2>Delete Product</h2>
+    <form id="deleteProductForm">
+        <label for="deleteProductId">Product ID:</label>
+        <input type="text" id="deleteProductId" name="deleteProductId">
+        <button type="submit">Delete</button>
+    </form>
+
+    <!-- Product List with ProductId, ProductName, CategoryId, CategoryName -->
+
+    <h2>Product List</h2>
+    <table id="productList">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category ID</th>
+                <th>Category Name</th>
+            </tr>
+        </thead>
+        <tbody id="productListBody">
+            <!-- Product list items will be populated dynamically -->
+        </tbody>
+    </table>
+
+    <!-- Include Node.js script for handling CRUD operations -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+    <script>
+        // Your Node.js server URL
+        const serverUrl = 'http://localhost:3000';
+
+        // Function to fetch and display product list
+        async function getProductList() {
+            try {
+                const response = await axios.get(${serverUrl}/products);
+                const productList = response.data;
+                const productListBody = document.getElementById('productListBody');
+                productListBody.innerHTML = '';
+
+                productList.forEach(product => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${product.productId}</td>
+                        <td>${product.productName}</td>
+                        <td>${product.categoryId}</td>
+                        <td>${product.categoryName}</td>
+                    `;
+                    productListBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching product list:', error);
+            }
+        }
+
+        // Call the function to fetch and display product list on page load
+        window.onload = getProductList;
+    </script>
+</body>
+</html>

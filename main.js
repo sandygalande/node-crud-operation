@@ -34,8 +34,8 @@ app.use((req, res, next)=>{
 app.set("view engine","ejs");
 
 // route prefix
-app.use("", require("./routes/categoryController"));
-app.use("", require("./routes/productController"));
+app.use("", require("./routes/routes"));
+
 
 
 app.listen(PORT, ()=>{
