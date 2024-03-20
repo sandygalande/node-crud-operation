@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Master</title>
+</head>
+<body>
+    <h1>Category Master</h1>
+    <form action="/category" method="POST">
+        <input type="text" name="categoryName" placeholder="Category Name">
+        <button type="submit">Add Category</button>
+    </form>
+
+    <h2>Categories:</h2>
+    <ul>
+        <% categories.forEach(category => { %>
+            <li><%= category.categoryName %> - <a href="/category/<%= category.id %>/edit">Edit</a> | <a href="/category/<%= category.id %>/delete">Delete</a></li>
+        <% }) %>
+    </ul>
+</body>
+</html>
